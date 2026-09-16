@@ -1,6 +1,6 @@
 const listaProdutos = document.getElementById("listaProdutos");
 
-document.getElementById("quantidadeProdutos").innerText = produtos.length;
+document.getElementById("quantidadeProdutos").innerText = produtos.length + " Produtos Cadastrados";
 
 for(let i = 0; i < produtos.length; i ++){
 
