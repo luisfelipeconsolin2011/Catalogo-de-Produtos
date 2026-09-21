@@ -1,44 +1,91 @@
 const listaProdutos = document.getElementById("listaProdutos");
-
-document.getElementById("quantidadeProdutos").innerText = produtos.length + " Produtos Cadastrados";
-
-for(let i = 0; i < produtos.length; i ++){
-
-    listaProdutos.innerHTML += `
-    <article class="card">
-
-    <div class="icone">
-
-    ${produtos[i].icone}
-    </div>
-
-    <div class = "card-conteudo">
-
-        <span class = "categoria">
-            ${produtos[i].cetegoria}
-        </span>
-
-        <h2>
-            ${produtos[i].nome}        
-        </h2>
-
-        <p class = "preco">
-            R$ ${produtos[i].preco.toLocaleString("pt-BR",{
-                minimumFractionDigits:2,
-                maximumFractionDigits:2
-            })}
-        </p>
-
-        <button>
-            Comprar
-        </button>
-    </div>
+const quantidadeProdutos = document.getElementById("quantidadeProdutos");
+const campoPesquisa = document.querySelector(".pesquisa input");
 
 
+// FUNÇÃO PARA EXIBIR OS PRODUTOS
+function mostrarProdutos(lista) {
+
+    // Apaga os produtos que estavam na tela
+    listaProdutos.innerHTML = "";
+
+    // Atualiza a quantidade
+    quantidadeProdutos.innerText =
+        lista.length + " Produtos Cadastrados";
 
 
+    // Se não encontrar nenhum produto
+    if (lista.length === 0) {
+
+        listaProdutos.innerHTML =
+            "<p>Nenhum produto encontrado.</p>";
+
+        return;
+    }
 
 
-    </article>
-    `;
+    // Mostra os produtos
+    for (let i = 0; i < lista.length; i++) {
+
+        listaProdutos.innerHTML += `
+        
+        <article class="card">
+
+            <div class="icone">
+                ${lista[i].icone}
+            </div>
+
+            <div class="card-conteudo">
+
+                <span class="categoria">
+                    ${lista[i].cetegoria}
+                </span>
+
+                <h2>
+                    ${lista[i].nome}
+                </h2>
+
+                <p class="preco">
+                    R$ ${lista[i].preco.toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    })}
+                </p>
+
+                <button>
+                    Comprar
+                </button>
+
+            </div>
+
+        </article>
+
+        `;
+    }
 }
+
+
+// PRIMEIRO MOSTRA TODOS OS PRODUTOS
+mostrarProdutos(produtos);
+
+
+// QUANDO O USUÁRIO DIGITAR NA PESQUISA
+campoPesquisa.addEventListener("input", function () {
+
+    const textoDigitado = campoPesquisa.value.toLowerCase();
+
+    const produtosFiltrados = produtos.filter(function (produto) {
+
+        const nomeProduto = produto.nome.toLowerCase();
+
+        const categoriaProduto = produto.cetegoria.toLowerCase();
+
+        return nomeProduto.includes(textoDigitado) ||
+               categoriaProduto.includes(textoDigitado);
+
+    });
+
+
+    mostrarProdutos(produtosFiltrados);
+
+});
