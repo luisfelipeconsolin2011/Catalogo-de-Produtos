@@ -32,7 +32,7 @@ function mostrarProdutos(lista) {
         <article class="card">
 
             <div class="icone">
-                ${lista[i].icone}
+                <img src="${lista[i].icone}" alt="${lista[i].nome}">
             </div>
 
             <div class="card-conteudo">
@@ -52,7 +52,7 @@ function mostrarProdutos(lista) {
                     })}
                 </p>
 
-                <button>
+                <button onclick="alert('Parabéns Pela Compra!')">
                     Comprar
                 </button>
 
